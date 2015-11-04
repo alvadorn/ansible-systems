@@ -59,3 +59,10 @@
         - make
         - make install
       when: nodeversion.stdout != node.version
+
+    - name: Install Global NPM packages
+      npm: name={{ item.name }} version={{ item.version }} state=present global=yes executable=/usr/local/bin/npm
+      with_items:
+        - { name: npm,    version: 3.3.10 }
+        - { name: bower,  version: 1.6.5  }
+      sudo: no
